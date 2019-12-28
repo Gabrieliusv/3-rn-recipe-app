@@ -1,12 +1,35 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, Button, Platform } from "react-native";
 
-const CategoryMealsScreen = () => {
+import { CATEGORIES } from "../data/dummy-data";
+import Colors from "../constants/Colors";
+
+const CategoryMealsScreen = ({ navigation }) => {
+  const categoryId = navigation.getParam("categoryId");
+  const selectedCategory = CATEGORIES.find(cat => cat.id === categoryId);
+
   return (
     <View style={styles.screen}>
       <Text>The category meal screen!</Text>
+      <Text>{selectedCategory.title}</Text>
+      <Button
+        title='Go to Detail'
+        onPress={() => {
+          navigation.navigate("MealDetail");
+        }}
+      />
     </View>
   );
+};
+
+CategoryMealsScreen.navigationOptions = navigationData => {
+  const categoryId = navigationData.navigation.getParam("categoryId");
+
+  const selectedCategory = CATEGORIES.find(cat => cat.id === categoryId);
+
+  return {
+    headerTitle: selectedCategory.title
+  };
 };
 
 const styles = StyleSheet.create({
