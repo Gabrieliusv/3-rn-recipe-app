@@ -1,8 +1,8 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList } from "react-native";
 
 import { CATEGORIES } from "../data/dummy-data";
-import CategoryGridTile from "../conponents/CategoryGridTile";
+import CategoryGridTile from "../components/CategoryGridTile";
 
 const CategoryScreen = ({ navigation }) => {
   const renderGridItem = itemData => {
@@ -27,13 +27,5 @@ const CategoryScreen = ({ navigation }) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
-});
 
 export default CategoryScreen;
