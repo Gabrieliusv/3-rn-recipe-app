@@ -1,10 +1,12 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
 import MealsItem from "./MealItem";
 
-const MealList = ({ listData, navigation }) => {
+const MealList = ({ listData, navigation, favoriteMeals }) => {
   const renderMealItem = itemData => {
+    const isFavorite = favoriteMeals.some(meal => meal.id === itemData.item.id);
     return (
       <MealsItem
         title={itemData.item.title}
@@ -15,7 +17,11 @@ const MealList = ({ listData, navigation }) => {
         onSelect={() => {
           navigation.navigate({
             routeName: "MealDetail",
-            params: { mealId: itemData.item.id }
+            params: {
+              mealId: itemData.item.id,
+              mealTitle: itemData.item.title,
+              isFav: isFavorite
+            }
           });
         }}
       />
@@ -41,4 +47,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MealList;
+const mapStateToProps = state => ({
+  favoriteMeals: state.meal.favoriteMeals
+});
+
+export default connect(mapStateToProps)(MealList);
